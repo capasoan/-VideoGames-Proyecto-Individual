@@ -43,6 +43,7 @@ export const onSearch  = (nombre) => {
 
 
 export const filtrarPorGenero = (nombreGenero) => {
+  //  console.log("nombreGenero", nombreGenero)
     return {
         type: FILTRAR_POR_GENERO,
         payload: nombreGenero

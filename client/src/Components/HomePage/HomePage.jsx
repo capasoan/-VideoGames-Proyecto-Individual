@@ -12,35 +12,36 @@ const HomePage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const obtenerEquipos = async () => {
+        const obtenerGeneros = async () => {
             try {
                 const response = await axios.get('http://localhost:3001/genres');
                 setGenerosDisponibles(response.data);
-             //   console.log(response.data);
+                //   console.log(response.data);
             } catch (error) {
-                console.error('Error al obtener equipos disponibles:', error);
+                console.error('Error al obtener generos disponibles:', error);
             }
         };
 
-        obtenerEquipos();
+        obtenerGeneros();
     }, []);
 
-    const handleSeleccionarEquipo = (selectedTeam) => {
-        setGeneroSeleccionado(selectedTeam);
-        dispatch(filtrarPorGenero(selectedTeam)); 
+    const handleSeleccionarGenero = (nombreGenero) => {
+        setGeneroSeleccionado(nombreGenero);
+        dispatch(filtrarPorGenero(nombreGenero));
     };
 
     const handleSearch = async (nombre) => {
         dispatch(onSearch(nombre));
     };
+    //console.log(generoSeleccionado)
     const videoGames = useSelector(state => state.videoGames);
     return (
         <div>
             <h1>Home Page</h1>
             <h2>La mejor página de la historia la encontrarás en Home Page</h2>
             <SearchBar onSearch={handleSearch} />
-            <select value={generoSeleccionado} onChange={(e) => handleSeleccionarEquipo(e.target.value)}>
-                <option value="">Selecciona un género</option>
+            <select value={generoSeleccionado} onChange={(e) => handleSeleccionarGenero(e.target.value)}>
+                <option value="generosDisponibles">Selecciona un género</option>
                 {generosDisponibles.map((genero, id) => (
                     <option key={id} value={genero.Nombre}>{genero.Nombre}</option>
                 ))}

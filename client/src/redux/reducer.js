@@ -16,7 +16,7 @@ const rootReducer = (state = initialState, action) => {
     case BUSCAR_JUEGO:
       return {
         ...state,
-    videoGames: [...state.videoGames, action.payload]
+        videoGames: [...state.videoGames, action.payload]
       };
 
     case OBTENER_DETALLES_JUEGO:
@@ -24,19 +24,21 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         detalleDelJuego: action.payload
       };
-      case FILTRAR_POR_GENERO:
-        const nombregenero = action.payload.toLowerCase();
-        const juegosFiltrados = state.videoGames.filter(juego =>
-          juego.generos && Array.isArray(juego.generos) && juego.generos.some(genero => genero.Nombre.toLowerCase() === nombregenero)
-        );
-        return {
-          ...state,
-          juegosFiltradosPorGenero: juegosFiltrados 
-        };
-      
 
 
-  
+    case FILTRAR_POR_GENERO:
+      const nombreGenero = action.payload.toLowerCase();
+      const juegosFiltrados = state.videoGames.filter(juego =>
+        juego.genres && Array.isArray(juego.genres) && juego.genres.some(genero =>
+          genero.toLowerCase() === nombreGenero
+        )
+      );
+      return {
+        ...state,
+        juegosFiltradosPorGenero: juegosFiltrados
+      };
+
+
     default:
       return state;
   }

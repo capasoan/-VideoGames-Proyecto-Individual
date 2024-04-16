@@ -4,7 +4,7 @@ import LandingPage from "./Components/Landing/LandingPage.jsx";
 import HomePage from './Components/HomePage/HomePage.jsx';
 import Detail from './Components/Detail/Detail.jsx';
 import Form from './Components/Form/Form.jsx';
-import FiltrarGenero from './Components/FiltrarEquipo/FiltrarGenero.jsx';
+import FiltrarGenero from './Components/FiltrarGenero/FiltrarGenero.jsx';
 import { Provider } from 'react-redux'; 
 import store from './redux/store.js';
 

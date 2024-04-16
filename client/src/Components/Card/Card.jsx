@@ -11,7 +11,7 @@ function Card({ game, idVideogame}) {
 
   const {  Nombre, released, rating, Imagen, platforms, requirements, Generos
   } = game;
-   console.log("videoGames:", game);
+   //console.log("videoGames:", game);
 
 
   return (
