@@ -1,14 +1,14 @@
 // RESPUESTA DE LA API
 const axios = require('axios');
 
-const nameGame = async(req, res)=>{
+const nameGame = async (req, res) => {
 
-    const {nombre}= req.query
-    
-   
-    try{
-        const apiKey= '0f6459a142804a0896467813bd49a55c'
-        const allVideogames =[];
+    const { nombre } = req.query
+
+
+    try {
+        const apiKey = '0f6459a142804a0896467813bd49a55c'
+        const allVideogames = [];
         const firstPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page_size=40`);
         const secondPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page=2&page_size=40`);
         const thirdPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page=3&page_size=40`);
@@ -34,34 +34,29 @@ const nameGame = async(req, res)=>{
             })
         })
 
-      // console.log('games:', games);
-      const game = allVideogames.find(juego => juego.name.toLowerCase() === nombre.toLowerCase());
 
-        console.log('game:', game);
+        const filteredGames = allVideogames.filter(juego => juego.name.toLowerCase().includes(nombre.toLowerCase()));
 
 
+        const game = filteredGames.slice(0, 15);
 
-        if(!game){
-            res.status(400).json({error: "Juego no encontrado"})
-        }else{
-            return  res.status(200).json(game)
+        if (game.length === 0) {
+            res.status(400).json({ error: "Juego no encontrado" });
+        } else {
+            return res.status(200).json(game);
         }
-    
-    }catch(error){
-        console.log("ERROR",error)
-        res.status(500).json({error:"Error 500"})
-    }
 
+    } catch (error) {
+        console.log("ERROR", error);
+        res.status(500).json({ error: "Error 500" });
+    }
 }
 
 module.exports = nameGame;
 
+// const game = allVideogames.find(juego => juego.name.toLowerCase() === nombre.toLowerCase());
 
-
-
-
-
-
+// console.log('game:', game);
 
 // // RESPUESTA DE LA DB
 // const { Videogame, Genre, GameGenre } = require('../db')
