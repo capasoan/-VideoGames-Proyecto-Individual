@@ -15,13 +15,14 @@ function Card({ game, idVideogame}) {
 
 
   return (
-    <div>
+    <div className="card">
+     
        <Link to={`/videogames/${idVideogame}`}>
         <h2>{Nombre}</h2>
       </Link>
       <h2>{released}</h2>
       <h2>{rating}</h2>
-      <img src={Imagen} alt="Juego" />
+      <img src={Imagen} alt="juego" style={{ width: '200px', height: 'auto' }} />
       <h2>{platforms}</h2>
       <h2>{requirements}</h2>
       <h2>Generos:</h2>

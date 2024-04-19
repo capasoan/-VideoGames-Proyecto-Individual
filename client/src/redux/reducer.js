@@ -1,9 +1,10 @@
-import { BUSCAR_JUEGO, OBTENER_DETALLES_JUEGO, FILTRAR_POR_GENERO } from "./action-types.js";
+import { BUSCAR_JUEGO, OBTENER_DETALLES_JUEGO, FILTRAR_POR_GENERO, ORDENAR_POR_NOMBRE_DES, ORDENAR_POR_NOMBRE_AS, ORDENAR_POR_RATING_DES, ORDENAR_POR_RATING_AS } from "./action-types.js";
 
 const initialState = {
   videoGames: [],
   detalleDelJuego: null,
   juegosFiltradosPorGenero: []
+
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -26,16 +27,55 @@ const rootReducer = (state = initialState, action) => {
       };
 
 
-    case FILTRAR_POR_GENERO:
-      const nombreGenero = action.payload.toLowerCase();
-      const juegosFiltrados = state.videoGames.filter(juego =>
-        juego.genres && Array.isArray(juego.genres) && juego.genres.some(genero =>
-          genero.toLowerCase() === nombreGenero
-        )
-      );
+case FILTRAR_POR_GENERO:
+  const nombreGenero = action.payload.toLowerCase();
+  const juegosFiltrados = state.videoGames.flatMap(array =>
+    array.filter(juego =>
+    juego.genres && Array.isArray(juego.genres) && juego.genres.some(genero =>
+      genero.toLowerCase() === nombreGenero
+    )
+  ));
+ // console.log('nombreGenero',nombreGenero)
+ // console.log('juegosFiltrados',juegosFiltrados)
+
+
+
+  return {
+    ...state,
+    juegosFiltradosPorGenero: juegosFiltrados  
+  };
+
+
+  
+    case ORDENAR_POR_NOMBRE_AS:
       return {
         ...state,
-        juegosFiltradosPorGenero: juegosFiltrados
+        videoGames: state.videoGames.map(subArray =>
+        subArray.slice().sort((a, b) =>
+          a.name.localeCompare(b.name)
+        )
+      )
+    }
+
+    case ORDENAR_POR_NOMBRE_DES:
+      return {
+        ...state,
+       videoGames: state.videoGames.map(subArray =>
+        subArray.slice().sort((a, b) => b.name.localeCompare(a.name)))
+      };
+
+    case ORDENAR_POR_RATING_AS:
+      return {
+        ...state,
+        videoGames: state.videoGames.map(subArray =>
+          subArray.slice().sort((a, b) => a.rating - b.rating))
+      };
+
+    case ORDENAR_POR_RATING_DES:
+      return {
+        ...state,
+        videoGames: state.videoGames.map(subArray =>
+          subArray.slice().sort((a, b) => b.rating - a.rating))
       };
 
 

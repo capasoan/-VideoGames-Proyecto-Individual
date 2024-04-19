@@ -3,11 +3,12 @@ import Card from "../Card/Card";
 function Cards({ videoGames }) {
 //console.log("CardS", videoGames);
 
+if (Array.isArray(videoGames) ) {
 
-  if (!Array.isArray(videoGames)) {
-    
-    videoGames = [videoGames];
-  }
+  videoGames = videoGames.flat();
+} else if (!videoGames) {
+  return null;
+}
 
   return (
     <div>
@@ -18,7 +19,10 @@ function Cards({ videoGames }) {
             Nombre: game.name,
             Imagen: game.img,
             Generos: game.genres
-          }} idVideogame={game.id}
+          }} 
+          idVideogame={game.id}
+          
+          
         />
       ))}
     </div>
