@@ -17,7 +17,7 @@ const createVideoGame = async (req, res) => {
         let genre = await Genre.findOne({ where: { Nombre: genreData.Nombre } });
 
         if (!genre) {
-            throw new Error("El género especificado no existe");
+            throw new Error("El género no existe");
         }
 
         await GameGenre.create(
