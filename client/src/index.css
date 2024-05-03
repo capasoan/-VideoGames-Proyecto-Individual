@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('./assets/df.png');
+  background-repeat: repeat-y; 
+  background-attachment: fixed; 
+  overflow-y: auto;
 }
 
 code {

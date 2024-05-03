@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Cards from '../Cards/Cards';
+import { useState, useEffect } from 'react';
 import SearchBar from "../SearchBar/SearchBar";
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { onSearch, filtrarPorGenero, ordenarNombreDescendente,ordenarNombreAscendente, odenarRatingDescendente, odenarRatingAscendente } from "../../redux/actions";
-import { NavLink } from "react-router-dom";
+import Paginado from '../Paginado/Paginado';
+import { useNavigate } from 'react-router-dom';
+import './HomePage.css'; 
 
 const HomePage = () => {
     const [generosDisponibles, setGenerosDisponibles] = useState([]);
     const [generoSeleccionado, setGeneroSeleccionado] = useState('');
     const [ordenamiento, setOrdenamiento] = useState('');
+    const navigate = useNavigate();
 
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -28,17 +30,20 @@ const HomePage = () => {
         obtenerGeneros();
     }, []);
 
+
     const handleSeleccionarGenero = (nombreGenero) => {
         setGeneroSeleccionado(nombreGenero);
         dispatch(filtrarPorGenero(nombreGenero));
+        navigate(`/FiltrarGenero/${nombreGenero}`);
     };
 
     const handleSearch = async (nombre) => {
         dispatch(onSearch(nombre));
+        
     };
     //console.log(generoSeleccionado)
 
- const handleOrdenar = (tipoOrden) => {
+const handleOrdenar = (tipoOrden) => {
     setOrdenamiento(tipoOrden);
     if (tipoOrden === 'letraAs') {
         dispatch(ordenarNombreAscendente(tipoOrden));
@@ -52,54 +57,50 @@ const HomePage = () => {
 };
 
 
-
-    const videoGames = useSelector(state => state.videoGames);
+const videoGamesNested = useSelector(state => state.videoGames);
+const videoGames = videoGamesNested.flat();
+ 
    // console.log(videoGames)
+    
+return (
+<div className='homepage-container'>
+    <div className='burbuja'>
 
-
-    return (
-          <div>
-            <h1>Home Page</h1>
-            <h2>La mejor página de la historia la encontrarás en Home Page</h2>
+        <h1 className='titulo'>All games you can find</h1>
+        <div>
             <SearchBar onSearch={handleSearch} />
-            
-            <select value={generoSeleccionado} onChange={(e) => handleSeleccionarGenero(e.target.value)}>
-                <option value="generosDisponibles">Selecciona un género</option>
+        </div>
+                        <div className='imagenHome'></div>
+                        
+        <div className="filters">
+            <select value={generoSeleccionado} onChange={(e) => handleSeleccionarGenero(e.target.value)} className="select">
+                <option value="">Selecciona un género</option>
                 {generosDisponibles.map((genero, id) => (
                     <option key={id} value={genero.Nombre}>{genero.Nombre}</option>
                 ))}
             </select>
 
-            {generoSeleccionado && (
-                   <Link to={`/FiltrarGenero/${generoSeleccionado || ''}`}>
-                   <button>Filtrar por género</button>
-               </Link>
-            )}
-
-            <div>
-                <select value={ordenamiento} onChange={(e) => handleOrdenar(e.target.value)}>
-                    <option value="">Ordenar</option>
-                    <option value="letraAs">Nombre ascendente</option>
-                    <option value="letraDes">Nombre descendente</option>
-                    <option value="numeroAs">Rating ascendente</option>
-                    <option value="numeroDes">Rating descendente</option>
-                </select>
-
-                
-                <NavLink to="/Form">
-                    <button>Crear Video juego</button>
-                </NavLink>
-            </div>
-
-            <Cards videoGames={videoGames} />
-
-       
-            
+            <select value={ordenamiento} onChange={(e) => handleOrdenar(e.target.value)} className="select">
+                <option value="">Ordenar</option>
+                <option value="letraAs">Nombre ascendente</option>
+                <option value="letraDes">Nombre descendente</option>
+                <option value="numeroAs">Rating ascendente</option>
+                <option value="numeroDes">Rating descendente</option>
+            </select>
         </div>
-    );
+        </div>
+        <div className="tarjetas">
+
+            <div className='paginado'>
+            <Paginado videoGames={videoGames} pageSize={15} />
+            </div>
+        
+        </div>
+
+</div>
+);
+
+
 }
 
 export default HomePage;
-
-
-

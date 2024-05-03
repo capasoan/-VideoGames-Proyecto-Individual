@@ -11,12 +11,11 @@ function SearchBar({ onSearch }) {
     }
 
     return (
-    <div>
-            <div>
-                < input type='search' value={nombre} onChange={(e) => handleChange(e)} />
-            </div>
-            <button onClick={()=>onSearch(nombre)}>BUSCAR</button>
-    </div>)
+        <div >
+            <input type='search' value={nombre} onChange={(e) => handleChange(e)} className="input"  />
+            <button className='boton_Busqueda'onClick={() => onSearch(nombre)}>BUSCAR</button>
+        </div>
+    );
 }
 
 export default SearchBar;

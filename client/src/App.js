@@ -7,6 +7,7 @@ import Form from './Components/Form/Form.jsx';
 import FiltrarGenero from './Components/FiltrarGenero/FiltrarGenero.jsx';
 import { Provider } from 'react-redux'; 
 import store from './redux/store.js';
+import './App.css';
 
 function App() {
   return (

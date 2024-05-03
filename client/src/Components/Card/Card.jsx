@@ -3,22 +3,22 @@ import { Link } from "react-router-dom";
 
 
 
-function Card({ game, idVideogame}) {
+function Card({ game, idVideogame }) {
 
   // console.log("idVideogame:", idVideogame);
   // console.log("videoGames:", game);
 
 
-  const {  Nombre, released, rating, Imagen, platforms, requirements, Generos
+  const { Nombre, released, rating, Imagen, platforms, requirements, Generos
   } = game;
-   //console.log("videoGames:", game);
+  //console.log("videoGames:", game);
 
 
   return (
-    <div className="card">
-     
-       <Link to={`/videogames/${idVideogame}`}>
-        <h2>{Nombre}</h2>
+    <div className="tarjeta">
+
+      <Link to={`/videogames/${idVideogame}`}>
+        <div className="nombre">{Nombre}</div>
       </Link>
       <h2>{released}</h2>
       <h2>{rating}</h2>
@@ -27,13 +27,13 @@ function Card({ game, idVideogame}) {
       <h2>{requirements}</h2>
       <h2>Generos:</h2>
       {Generos
- && Generos.length > 0 && (
-         <ul>
-         {Generos.map((genre, index) => (
-           <li key={index}>{genre}</li>
-         ))}
-       </ul>
-      )}
+        && Generos.length > 0 && (
+          <ul>
+            {Generos.map((genre, index) => (
+              <li key={index}>{genre}</li>
+            ))}
+          </ul>
+        )}
     </div>
   );
 }

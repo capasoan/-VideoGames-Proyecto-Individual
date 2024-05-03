@@ -1,5 +1,6 @@
 import Card from "../Card/Card";
 
+
 function Cards({ videoGames }) {
 //console.log("CardS", videoGames);
 
@@ -11,19 +12,21 @@ if (Array.isArray(videoGames) ) {
 }
 
   return (
-    <div>
+    <div className="tarjetas">
       {videoGames.map((game) => (
-        <Card
+        <div >
+          <Card 
           key={game.id}
           game={{
-            Nombre: game.name,
-            Imagen: game.img,
-            Generos: game.genres
+            Nombre: game.Nombre || game.name,
+            Imagen: game.Imagen || game.img, 
+            Generos: game.generos || game.genres
           }} 
           idVideogame={game.id}
-          
-          
+              
         />
+        </div>
+      
       ))}
     </div>
   );
