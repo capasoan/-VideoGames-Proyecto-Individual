@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Videogame, Genre, GameGenre} = require('../db');
+const { Videogame, Genre, GameGenre } = require('../db');
 const { Op } = require('sequelize');
 
 
@@ -11,7 +11,7 @@ const nameGame = async (req, res) => {
         const juegos = await Videogame.findAll({
             where: {
                 Nombre: {
-                    [Op.iLike]: `%${nombre}%` 
+                    [Op.iLike]: `%${nombre}%`
                 }
             },
             attributes: ['Nombre', 'Descripcion', 'Plataformas', 'Imagen', 'Fechadelanzamiento', 'Rating', 'id'],
@@ -19,7 +19,7 @@ const nameGame = async (req, res) => {
         });
 
         if (!juegos || juegos.length === 0) {
-    
+
             const apiKey = '0f6459a142804a0896467813bd49a55c';
             const allVideogames = [];
             const firstPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page_size=40`);
@@ -36,7 +36,7 @@ const nameGame = async (req, res) => {
             let games = pageOne.concat(pageTwo, pageThree, pageFour, pageFive)
             games.forEach((game) => {
                 allVideogames.push({
-                    id: game.id.toString(), 
+                    id: game.id.toString(),
                     name: game.name,
                     released: game.released,
                     rating: game.rating,
@@ -82,12 +82,29 @@ const nameGame = async (req, res) => {
         });
 
 
-        for (let i = 0; i < generoJuegos.length; i++) {
-            for (let j = 0; j < generoJuegos[i].generos.length; j++) {
-                const genero = await Genre.findByPk(generoJuegos[i].generos[j].id);
-                generoJuegos[i].generos[j].Nombre = genero.Nombre;
-            }
-        }
+
+
+        const genreIds = generoJuegos.flatMap(juego => juego.generos.map(gen => gen.id));
+       // console.log('genreIds',genreIds)
+
+        const genres = await Genre.findAll({
+            where: { id: { [Op.in]: genreIds } }
+        });
+       // console.log('genres', genres)
+
+        const genreMap = genres.reduce((map, genre) => {
+            map[genre.id] = genre.Nombre;
+            return map;
+        }, {});
+        //console.log('genreMap', genreMap)
+
+        
+        generoJuegos.forEach(juego => {
+            juego.generos.forEach(gen => {
+                gen.Nombre = genreMap[gen.id] || 'Género no encontrado';
+            });
+        });
+        //console.log('generoJuegos', generoJuegos)
 
         return res.status(200).json({ juegos: generoJuegos });
     } catch (error) {

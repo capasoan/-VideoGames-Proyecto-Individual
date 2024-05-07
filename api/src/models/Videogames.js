@@ -9,7 +9,8 @@ module.exports = (sequelize) => {
     },
     Nombre: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     Descripcion: {
       type: DataTypes.JSONB,
