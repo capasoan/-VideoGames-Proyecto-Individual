@@ -13,7 +13,7 @@ export const onSearch = (nombre) => {
 
             let juegos = [];
             if (Array.isArray(response.data.juegos)) {
-   
+
                 juegos = response.data.juegos.map(juego => {
                     const juegoData = juego[0];
                    // console.log("Juego:", juegoData);
@@ -65,7 +65,8 @@ export const obtenerDetallesJuego = (idVideogame) => {
             
             let juegoFormateado;
             
-    
+    // console.log(response.data.game)
+ 
 if (response.data.game) {
 
     juegoFormateado = {
@@ -80,7 +81,7 @@ if (response.data.game) {
         source: 'database'
     };
 } else {
- 
+
     juegoFormateado = {
         id: response.data.id,
         name: response.data.name,
@@ -94,7 +95,7 @@ if (response.data.game) {
     };
 }
 
-
+// console.log(response.data)
             dispatch({
                 type: OBTENER_DETALLES_JUEGO,
                 payload: juegoFormateado
@@ -116,7 +117,7 @@ export const filtrarPorGenero = (nombreGenero) => {
 
 
 export const ordenarNombreAscendente = (letraAs) => {
-    // console.log("letraAs", letraAs)
+    console.log("letraAs", letraAs)
 
     return {
         type: ORDENAR_POR_NOMBRE_AS,
@@ -125,7 +126,7 @@ export const ordenarNombreAscendente = (letraAs) => {
 };
 
 export const ordenarNombreDescendente = (letraDes) => {
-    // console.log("letraDes", letraDes)
+    console.log("letraDes", letraDes)
     return {
         type: ORDENAR_POR_NOMBRE_DES,
         payload: letraDes
@@ -134,7 +135,7 @@ export const ordenarNombreDescendente = (letraDes) => {
 
 
 export const odenarRatingAscendente = (numeroAs) => {
-    //  console.log("numeroAs", numeroAs)
+    console.log("numeroAs", numeroAs)
     return {
         type: ORDENAR_POR_RATING_AS,
         payload: numeroAs
@@ -142,7 +143,7 @@ export const odenarRatingAscendente = (numeroAs) => {
 };
 
 export const odenarRatingDescendente = (numeroDes) => {
-    // console.log("numeroDes", numeroDes)
+console.log("numeroDes", numeroDes)
     return {
         type: ORDENAR_POR_RATING_DES,
         payload: numeroDes

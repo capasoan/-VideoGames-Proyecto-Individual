@@ -59,35 +59,41 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case ORDENAR_POR_NOMBRE_AS:
+
+      const allGamesAs = state.videoGames.flat();
+
+      const sortedGamesByNameAsc = [...allGamesAs].sort((a, b) => a.name.localeCompare(b.name));
+
       return {
         ...state,
-        videoGames: state.videoGames.map(subArray =>
-          subArray.slice().sort((a, b) =>
-            a.name.localeCompare(b.name)
-          )
-        )
-      }
+        videoGames: [sortedGamesByNameAsc]
+      };
 
     case ORDENAR_POR_NOMBRE_DES:
+      const allGamesDes = state.videoGames.flat();
+      const sortedGamesByNameDesc = [...allGamesDes].sort((a, b) => b.name.localeCompare(a.name));
       return {
         ...state,
-        videoGames: state.videoGames.map(subArray =>
-          subArray.slice().sort((a, b) => b.name.localeCompare(a.name)))
+        videoGames: [sortedGamesByNameDesc]
       };
 
     case ORDENAR_POR_RATING_AS:
+
+      const allGamesRas = state.videoGames.flat();
+      const sortedGamesByRatingAsc = [...allGamesRas].sort((a, b) => a.rating - b.rating);
       return {
         ...state,
-        videoGames: state.videoGames.map(subArray =>
-          subArray.slice().sort((a, b) => a.rating - b.rating))
+        videoGames: [sortedGamesByRatingAsc]
       };
 
     case ORDENAR_POR_RATING_DES:
+      const allGamesRdes = state.videoGames.flat();
+      const sortedGamesByRatingDesc = [...allGamesRdes].sort((a, b) => b.rating - a.rating);
       return {
         ...state,
-        videoGames: state.videoGames.map(subArray =>
-          subArray.slice().sort((a, b) => b.rating - a.rating))
+        videoGames: [sortedGamesByRatingDesc]
       };
+
 
     case ACTUALIZAR_DATOS_FORMULARIO:
       return {

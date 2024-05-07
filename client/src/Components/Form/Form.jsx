@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { descargarDatosFormulario, descargarDatosValidaciones} from '../../redux/actions';
-import { validateForm, nameRegex, ratingRegex, platformsRegex, requirementsRegex } from '../../redux/utils/formValidations';
+import { validateForm } from '../../redux/utils/formValidations';
 
 function Form() {
     const [generos, setGeneros] = useState([]);
@@ -27,6 +27,7 @@ function Form() {
         const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
         setSelectedGeneros(selectedOptions);
     };
+    
 
     const handleChange = (event) => {
         const { name, value, type, files } = event.target;
@@ -62,7 +63,7 @@ function Form() {
                     Rating: parseFloat(formData.rating),
                     Plataformas: formData.platforms.split(',').map(platform => platform.trim())
                 },
-                genreData: { Nombre: selectedGeneros }
+                genreData: selectedGeneros 
             });
             if (response.status !== 201) {
                 throw new Error('Error al crear el juego');

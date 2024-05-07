@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 const Detail = ({ game, obtenerDetallesJuego }) => {
   const { idVideogame } = useParams();
   const [cargando, setCargando] = useState(true);
+  console.log(idVideogame)
 
   useEffect(() => {
 

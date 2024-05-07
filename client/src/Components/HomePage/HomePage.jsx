@@ -59,8 +59,9 @@ const handleOrdenar = (tipoOrden) => {
 
 const videoGamesNested = useSelector(state => state.videoGames);
 const videoGames = videoGamesNested.flat();
- 
-   // console.log(videoGames)
+
+
+console.log(videoGames)
     
 return (
 <div className='homepage-container'>

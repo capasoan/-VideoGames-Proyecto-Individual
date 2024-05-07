@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 
 
-function LandingPage({ idVideogame }) {
+function LandingPage() {
     const [games, setGames] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
     const [selectedGame, setSelectedGame] = useState(null);
@@ -13,7 +13,7 @@ function LandingPage({ idVideogame }) {
     useEffect(() => {
         axios.get('http://localhost:3001/allGames')
             .then(response => {
-                setGames(response.data.slice(110, 130));
+                setGames(response.data.slice(1, 16));
             })
             .catch(error => {
                 console.error('Error fetching games:', error);
