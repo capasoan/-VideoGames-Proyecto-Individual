@@ -47,6 +47,66 @@ Videogame.belongsToMany(Genre, { through: GameGenre, foreignKey: 'VideogamesId',
 Genre.belongsToMany(Videogame, { through: GameGenre, foreignKey: 'GenreId', otherKey: 'VideogamesId', });
 
 
+
+
+
+// const cargarGeneros = async () => {
+//   try {
+
+//     const apiKey = '0f6459a142804a0896467813bd49a55c'
+
+//     let contador = 1;
+//     const generos = [];
+//     const generosUnicos = [];
+
+//     const firstPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page_size=40`);
+//     const secondPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page=2&page_size=40`);
+//     const thirdPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page=3&page_size=40`);
+//     const fourthPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page=4&page_size=40`);
+//     const fifthPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page=5&page_size=40`);
+//     let allPetitions = await Promise.all([firstPagePetition, secondPagePetition, thirdPagePetition, fourthPagePetition, fifthPagePetition]);
+    
+//     pageOne = allPetitions[0].data.results;
+//     pageTwo = allPetitions[1].data.results;
+//     pageThree = allPetitions[2].data.results;
+//     pageFour = allPetitions[3].data.results;
+//     pageFive = allPetitions[4].data.results;
+    
+//     let games = pageOne.concat(pageTwo, pageThree, pageFour, pageFive)
+    
+//     games.forEach((game) => {
+  
+//       generosUnicos.push({
+//         id: game.id,
+//         genres: game.genres.map(g => g.name),
+//       })
+//     })
+//     // console.log('games:', generosUnicos);
+
+//     generosUnicos.forEach((juego) => {
+//       if (juego.genres) {
+//         juego.genres.forEach((genero) => {
+//           const generoExistente = generos.find(item => item.Nombre === genero);
+//           if (!generoExistente) {
+//             generos.push({ id: contador++, Nombre: genero });
+//           }
+//         });
+//       }
+//     });
+
+//     console.log("Aqui:", generos);
+
+//     await Genre.bulkCreate(generos);
+
+//     console.log('Datos cargados exitosamente en la base de datos');
+//   } catch (error) {
+//     console.error('Error al cargar los datos:', error);
+//   }
+// };
+
+// cargarGeneros();
+
+
 // const cargarRelaciones = async () => {
 //   try {
 //     const response = await axios.get('https://api.rawg.io/api/games?key=0f6459a142804a0896467813bd49a55c');
@@ -112,68 +172,6 @@ Genre.belongsToMany(Videogame, { through: GameGenre, foreignKey: 'GenreId', othe
 // }
 
 // cargarRelaciones();
-
-
-// const cargarGeneros = async () => {
-//   try {
-
-//     const nombresUnicos = [];
-
-//     const apiKey = '0f6459a142804a0896467813bd49a55c'
-
-//     let contador = 1;
-//     const generos = [];
-//     const generosUnicos = [];
-
-//     const firstPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page_size=40`);
-//     const secondPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page=2&page_size=40`);
-//     const thirdPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page=3&page_size=40`);
-//     const fourthPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page=4&page_size=40`);
-//     const fifthPagePetition = axios.get(`https://api.rawg.io/api/games?key=${apiKey}&page=5&page_size=40`);
-//     let allPetitions = await Promise.all([firstPagePetition, secondPagePetition, thirdPagePetition, fourthPagePetition, fifthPagePetition]);
-    
-//     pageOne = allPetitions[0].data.results;
-//     pageTwo = allPetitions[1].data.results;
-//     pageThree = allPetitions[2].data.results;
-//     pageFour = allPetitions[3].data.results;
-//     pageFive = allPetitions[4].data.results;
-    
-//     let games = pageOne.concat(pageTwo, pageThree, pageFour, pageFive)
-    
-//     games.forEach((game) => {
-  
-//       generosUnicos.push({
-//         id: game.id,
-//         genres: game.genres.map(g => g.name),
-//       })
-//     })
-//     // console.log('games:', generosUnicos);
-
-//     generosUnicos.forEach((juego) => {
-//       if (juego.genres) {
-//         juego.genres.forEach((genero) => {
-//           const generoExistente = generos.find(item => item.Nombre === genero);
-//           if (!generoExistente) {
-//             generos.push({ id: contador++, Nombre: genero });
-//           }
-//         });
-//       }
-//     });
-
-//     console.log("Aqui:", generos);
-
-//     await Genre.bulkCreate(generos);
-
-//     console.log('Datos cargados exitosamente en la base de datos');
-//   } catch (error) {
-//     console.error('Error al cargar los datos:', error);
-//   }
-// };
-
-// cargarGeneros();
-
-
-
 
 // const cargarGames = async () => {
 //   try {

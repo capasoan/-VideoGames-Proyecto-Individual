@@ -63,6 +63,7 @@ const nameGame = async (req, res) => {
         const gameGenreRs = await GameGenre.findAll({
             where: { VideogamesId: juegosIds },
         });
+        
 
         if (!gameGenreRs || gameGenreRs.length === 0) {
             return res.status(404).json({ error: "El juego no está asociado a ningún genero" });

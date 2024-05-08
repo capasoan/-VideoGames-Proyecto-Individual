@@ -28,7 +28,7 @@ const createVideoGame = async (req, res) => {
                 );
             }
         } else {
-            let genreName = genreData.Nombre || genreData; // Permite manejar tanto objetos de género como solo nombres de género
+            let genreName = genreData.Nombre || genreData; 
             let foundGenre = await Genre.findOne({ where: { Nombre: genreName } });
             if (!foundGenre) {
                 throw new Error(`El género '${genreName}' no existe`);
