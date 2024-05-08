@@ -5,25 +5,25 @@ const Paginado = ({ videoGames, pageSize }) => {
 
 
     const totalObjects = videoGames.length;
-    //  console.log('totalObjects', totalObjects)
+   //  console.log('totalObjects', totalObjects)
 
 
     const [currentPage, setCurrentPage] = useState(1);
 
     const totalPages = Math.ceil(totalObjects / pageSize);
-    //console.log('totalPages', totalPages)
+//console.log('totalPages', totalPages)
 
 
     const startIndex = (currentPage - 1) * pageSize;
-    //   console.log('startIndex', startIndex)
+   /// console.log('startIndex', startIndex)
 
 
     const endIndex = Math.min(startIndex + pageSize, totalObjects);
-    // console.log('endIndex', endIndex)
+    //console.log('endIndex', endIndex)
 
     //const flatVideoGames = videoGames.flat();
     const currentObjects = videoGames.slice(startIndex, endIndex);
-    //console.log('currentObjects', currentObjects)
+   // console.log('currentObjects', currentObjects)
 
     const prevPage = () => {
         if (currentPage > 1) {
